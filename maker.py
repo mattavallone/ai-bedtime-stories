@@ -1,4 +1,5 @@
 # Story Maker - by Sean McManus - www.sean.co.uk
+# Modified by Matt Avallone
 import os
 import openai
 import requests
