@@ -8,16 +8,8 @@ import random
 import time
 from dotenv import load_dotenv
 
-# from diffusers import StableDiffusionPipeline, EulerDiscreteScheduler
 from diffusers import DiffusionPipeline
 import torch
-
-# model_id = "stabilityai/stable-diffusion-2"
-
-# # Use the Euler scheduler here instead
-# scheduler = EulerDiscreteScheduler.from_pretrained(model_id, subfolder="scheduler")
-# pipe = StableDiffusionPipeline.from_pretrained(model_id, scheduler=scheduler, torch_dtype=torch.float16)
-# pipe = pipe.to("cuda")
 
 # load both base & refiner
 base = DiffusionPipeline.from_pretrained(
@@ -39,10 +31,9 @@ refiner.to("cuda")
 n_steps = 10
 high_noise_frac = 0.8
 
-
+# load OpenAI API Key
 load_dotenv()
 OPEN_AI_KEY = os.getenv('OPENAI_API_KEY')
-DEEP_AI_KEY = os.getenv('DEEPAI_API_KEY')
 
 def write_list(list_to_write, filename):
     for number, paragraph in enumerate(list_to_write):
@@ -95,7 +86,7 @@ for number, image_prompt in enumerate(image_prompts):
     print(f"Generating image {number}")
 
     prompt = image_prompt
-    # image = pipe(prompt).images[0]
+
     # run both experts
     image = base(
         prompt=prompt,
